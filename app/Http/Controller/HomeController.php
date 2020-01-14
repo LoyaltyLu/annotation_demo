@@ -17,13 +17,7 @@ class HomeController
      */
     public function index()
     {
-        return [
-            1   => 1,
-            2   => 2,
-            333 => 3,
-            444 => 4,
-            11  => 2,
-        ];
+        return "test";
     }
 
     /**
