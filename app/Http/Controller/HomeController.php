@@ -21,10 +21,10 @@ class HomeController
     }
 
     /**
-     * @RequestMapping("/er")
+     * @RequestMapping("/demo")
      * @throws \Throwable
      */
-    public function er()
+    public function demo()
     {
         echo "er";
     }

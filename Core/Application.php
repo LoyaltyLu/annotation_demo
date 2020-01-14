@@ -37,19 +37,20 @@ class Application
         $reader = new Annotations\AnnotationReader();
         //手动实例化类 glob() 遍历文件
         $obj = new Route();
-        $re = new \ReflectionClass($obj);
+        $re  = new \ReflectionClass($obj);
         //获取类所有注解
         $class_annos = $reader->getClassAnnotations($re);
 
         foreach ($class_annos as $class_anno) {
             $beanName = $class_anno->getName();
             //parse方法作为作业
-            self::$beans[$beanName]=$re->newInstance();
+            self::$beans[$beanName] = $re->newInstance();
         }
     }
 
-    public static  function  getBean($name){
-         return  self::$beans[$name]??'';
+    public static function getBean($name)
+    {
+        return self::$beans[$name] ?? '';
     }
 
     public static function loadAnnotationRoute()
@@ -59,7 +60,7 @@ class Application
 
         //这里采用手动实例化类、可以利用 glob() 遍历文件
         $obj = new \App\Http\Controller\HomeController();
-        $re = new \ReflectionClass($obj);
+        $re  = new \ReflectionClass($obj);
 
         //获取类注解
         $class_annos = $reader->getClassAnnotations($re);
@@ -69,12 +70,13 @@ class Application
             $refMethods = $re->getMethods();
             foreach ($refMethods as $method) {
                 $methodAnnos = $reader->getMethodAnnotations($method);
-
                 foreach ($methodAnnos as $methodAnno) {
                     $routePath = $methodAnno->getRoute();
+                    var_dump($routePath);
                     //把某个逻辑放到在某个解析类当中处理逻辑
                     //$re->newInstance();反射实例化
-                    (new RequestMappingParser())->parse($routePrefix, $routePath, $re->newInstance(), $method->name);
+                    (new RequestMappingParser())->parse($routePrefix,
+                        $routePath, $re->newInstance(), $method->name);
                 }
             }
         }
